@@ -1,14 +1,14 @@
 const questions = [
-  { question: 'Le changement climatique est principalement causé par des phénomènes naturels', solution: false },
-  { question: 'La réduction de la consommation de viande n\'a aucun impact sur les émissions de gaz à effet de serre', solution: false },
-  { question: 'La déforestation contribue au changement climatique en libérant du dioxyde de carbone dans l\'atmosphère', solution: true },
-  { question: 'Les océans jouent un rôle important dans la régulation du climat en absorbant le dioxyde de carbone', solution: true },
-  { question: 'L\'acidification des océans, causée par l\'absorption de dioxyde de carbone, peut avoir des effets néfastes sur les récifs coralliens', solution: true },
-  { question: 'La notion de "sensibilité climatique" telle que définie par le GIEC représente la capacité de la Terre à maintenir son climat stable face aux perturbations humaines et naturelles', solution: false },
+  { question: 'Réduire la consommation d\'énergie', solution: true },
+  { question: 'Utiliser des énergies renouvelables', solution: true },
+  { question: 'Augmenter l\'utilisation des combustibles fossiles', solution: false },
+  { question: 'Planter des arbres pour compenser les émissions', solution: true },
+  { question: 'Ignorer complètement les problèmes climatiques', solution: false },
+  { question: 'Utiliser les transports individuels', solution: false },
 ];
 
 let currentQuestionIndex = 0;
-let answered = false; // Ajout de la variable answered
+let answered = false;
 
 function generateQuestion() {
   const gameContainer = document.getElementById("GameContainer");
@@ -22,13 +22,14 @@ function generateQuestion() {
 
     const trueButton = createButton("Vrai", () => checkAnswer(true), "true");
     const falseButton = createButton("Faux", () => checkAnswer(false), "false");
+    const nextButton = createButton("Question suivante", () => nextQuestion(), "next");
 
     gameContainer.appendChild(trueButton);
     gameContainer.appendChild(falseButton);
-
-    const nextButton = createButton("Question suivante", () => nextQuestion(), "next");
-    nextButton.disabled = true;
     gameContainer.appendChild(nextButton);
+
+    // Cacher le bouton "Question suivante" initialement
+    nextButton.style.display = 'none';
   } else {
     const finishButton = createButton("Récompense", () => changerDePage(), "change");
     gameContainer.innerHTML = "<p>Bravo, vous avez terminé le quiz !</p>";
@@ -59,12 +60,10 @@ function checkAnswer(userAnswer) {
 
     if (userAnswer === questionData.solution) {
       feedbackElement.textContent = "Bien joué, c'est la bonne réponse !";
-
       const nextButton = document.querySelector('.next');
-      nextButton.disabled = false;
+      setTimeout(() => nextButton.style.display = 'block', 10);
     } else {
       feedbackElement.textContent = "Désolé, ce n'est pas correct. La réponse était " + (questionData.solution ? "Vrai" : "Faux");
-
       const retryButton = createButton("Réessayer", () => retryQuestion(), "retry");
       gameContainer.appendChild(retryButton);
     }
@@ -75,6 +74,14 @@ function checkAnswer(userAnswer) {
 
 function retryQuestion() {
   answered = false;
+  const gameContainer = document.getElementById("GameContainer");
+  const retryButton = document.querySelector('.retry');
+  const nextButton = document.querySelector('.next');
+
+  // Supprimer les boutons existants
+  retryButton && gameContainer.removeChild(retryButton);
+  nextButton && gameContainer.removeChild(nextButton);
+
   generateQuestion();
 }
 

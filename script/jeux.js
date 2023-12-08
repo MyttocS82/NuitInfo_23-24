@@ -22,16 +22,23 @@ function generateQuestion() {
 
     const trueButton = createButton("Vrai", () => checkAnswer(true), "true");
     const falseButton = createButton("Faux", () => checkAnswer(false), "false");
+    const nextButton = createButton("Question suivante", () => nextQuestion(), "next");
 
     gameContainer.appendChild(trueButton);
     gameContainer.appendChild(falseButton);
-
-    const nextButton = createButton("Question suivante", () => nextQuestion(), "next");
     gameContainer.appendChild(nextButton);
-    nextButton.style.display = 'none'; // Cacher le bouton "Question suivante" initialement
+
+    // Cacher le bouton "Question suivante" initialement
+    nextButton.style.display = 'none';
   } else {
+    const finishButton = createButton("Quizz suivant", () => changerDePage(), "change");
     gameContainer.innerHTML = "<p>Bravo, vous avez terminé le quiz !</p>";
+    gameContainer.appendChild(finishButton);
   }
+}
+
+function changerDePage() {
+  window.location.href = './jeux2.html';
 }
 
 function createButton(text, clickHandler, className) {
@@ -53,12 +60,10 @@ function checkAnswer(userAnswer) {
 
     if (userAnswer === questionData.solution) {
       feedbackElement.textContent = "Bien joué, c'est la bonne réponse !";
-
       const nextButton = document.querySelector('.next');
-      nextButton.style.display = 'block'; // Afficher le bouton "Question suivante" si la réponse est correcte
+      setTimeout(() => nextButton.style.display = 'block', 10);
     } else {
       feedbackElement.textContent = "Désolé, ce n'est pas correct. La réponse était " + (questionData.solution ? "Vrai" : "Faux");
-
       const retryButton = createButton("Réessayer", () => retryQuestion(), "retry");
       gameContainer.appendChild(retryButton);
     }
@@ -74,8 +79,8 @@ function retryQuestion() {
   const nextButton = document.querySelector('.next');
 
   // Supprimer les boutons existants
-  gameContainer.removeChild(retryButton);
-  gameContainer.removeChild(nextButton);
+  retryButton && gameContainer.removeChild(retryButton);
+  nextButton && gameContainer.removeChild(nextButton);
 
   generateQuestion();
 }
