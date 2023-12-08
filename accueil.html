@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <title>Faire face au changement climatique</title>
   <link rel="stylesheet" href="./css/style.css">
-  <script src="./script/script.js"></script>
   <link rel="icon" type="image/png"
     href="https://www.1jour1actu.com/wp-content/uploads/2022/04/1J1A_AdobeStock_458944212.jpg">
   <meta name="description"
@@ -25,7 +24,12 @@
           <li><a href="./accueil.html">Accueil</a></li>
           <li><a href="./html/consequence.html">Conséquences</a></li>
           <li><a href="./html/jeux.html">Jeux</a></li>
-          <li><a href="./html/jeux.html">Thème</a></li>
+          <li>
+            <div class="choixThemes">
+              <button onclick="themeVert()">Thème Vert</button>
+              <button onclick="themeBlue()">Thème Bleue</button>
+            </div>
+          </li>
         </ul>
       </nav>
       <div class="imgHeader" id="ImgNuitInfo">
@@ -80,6 +84,7 @@
       </div>
     </footer>
   </div>
+<script src="./script/scrip.js"></script>
 </body>
 
 </html>
