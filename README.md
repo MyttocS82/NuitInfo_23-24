@@ -25,7 +25,7 @@ Le code source est divisé en plusieurs parties :
 
 ## Développeur
 
-Ce projet a été créé par Mathys SANSUS et MICHELON Scott. Si vous avez des questions, veuillez me contacter à mathys.sansus@etu.iut-tlse3.fr.
+Ce projet a été créé par Mathys SANSUS et MICHELON Scott. Si vous avez des questions, veuillez me contacter à mathys.sansus@etu.iut-tlse3.fr ou scott.michelon@etu.iut-tlse3.fr.
 
 ## Sources
 
